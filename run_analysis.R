@@ -10,7 +10,8 @@
 # The variable names are updated to reflect this summarisation and the second
 # data set is saved as summarydata.txt
 #
-# NOTE All reading in assumes that the working directory is "../Raw Data"
+# NOTE
+# All reading in assumes that the working directory is "../GetCleanDataProject"
 #
 # Ensure necessary libraries are loaded
 #

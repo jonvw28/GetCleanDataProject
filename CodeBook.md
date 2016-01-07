@@ -57,7 +57,7 @@ This raw data was then used as input to the R script run_analysis.R and the outp
 
 * tidyx.txt was prepared by combining the data for the feature vectors from the training and test sets (X_train.txt and X_test.txt). From this, the elements representing the mean and standard deviation of each of the 33 variables were selected. This data is then combined with the variables for activity label and subject id to prepare a complete dataset. The names of the variables were also updated to be more readable and in line with the concepts of tidy data. The final data set is included as tidyx.txt
 
-* summarydata.txt was then prepared from tidyx.txt, with the mean for each subject and for each activity calculated for all of the 66 feature variables in tidyx.txt. The variable names were also upadted to reflect this summarisation. The tidy data set is presented as summarydata.txt
+* summarydata.txt was then prepared from tidyx.txt, with the mean for each activity and each individual calculated for all of the 66 feature variables in tidyx.txt. The variable names were also updated to reflect this summarisation. The tidy data set is presented as summarydata.txt
 
 ## Code Book
 
