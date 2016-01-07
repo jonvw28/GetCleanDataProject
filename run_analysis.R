@@ -1,5 +1,16 @@
-# Overall Description here
-# All reading in assumes that the working directory is "../UCI HAR Dataset"
+# This code take the raw UCI dataset and combines the training and test sets
+# to create a single dataset. It then merges the subject ids and activity labels
+# for each pattern. Then it selects only the variables that represent estimates
+# of the mean and standard deviation of the recorded variables. In line with the
+# principles of tidy data, the variable names are then made more readable. This
+# data set is then saved as tidyx.txt.
+#
+# A second dataset is then created by summarising the new tidy data set. Here
+# the mean of each variable is calculated for each activity and subject. 
+# The variable names are updated to reflect this summarisation and the second
+# data set is saved as summarydata.txt
+#
+# NOTE All reading in assumes that the working directory is "../Raw Data"
 #
 # Ensure necessary libraries are loaded
 #
@@ -7,7 +18,7 @@ library(dplyr)
 #
 # Read in the data, labels and subject information for the training set
 #
-path <- "./train"
+path <- "./Raw Data/train"
 filename <- "X_train.txt"  
 X_Train <- read.table(file = file.path(path,filename))
 filename <- "y_train.txt"
@@ -17,7 +28,7 @@ subject_Train <- read.table(file = file.path(path,filename))
 #
 # Read in the data, labels and subject information for the test set
 #
-path <- "./test"
+path <- "./Raw Data/test"
 filename <- "X_test.txt"  
 X_Test <- read.table(file = file.path(path,filename))
 filename <- "y_test.txt"
@@ -38,8 +49,9 @@ rm(X_Train, X_Test, y_Train, y_Test, subject_Train, subject_Test)
 #
 # Load variable labels and merge to data set
 #
+path <- "./Raw Data"
 filename <- "features.txt"
-features <- read.table(file = filename)
+features <- read.table(file = file.path(path,filename))
 colnames(X) <- features[,2]
 rm(features,filename)
 #
@@ -59,12 +71,15 @@ colnames(TidyX)[1:2] <- c("subject","activity")
 #
 # Alter actvity labels to descriptive labels
 #
-Activitylab <- read.table("activity_labels.txt",stringsAsFactors = FALSE)[,2] %>%
+path <- "./Raw Data"
+filename <- "activity_labels.txt"
+Activitylab <- read.table(file = file.path(path,filename),
+                          stringsAsFactors = FALSE)[,2] %>%
         gsub("_", " ",.) %>%
         tolower %>%
         as.factor
 TidyX <- mutate(TidyX, activity = Activitylab[TidyX$activity])
-rm(Activitylab)
+rm(Activitylab,path,filename)
 #
 # Tidy up variable names
 #
